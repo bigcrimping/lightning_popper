@@ -1,11 +1,16 @@
 # Lightning Popper
 
+
 A Raspberry Pi pico project connecting to a SparkFun AS3935 Lightning Detector via SPI and a L298N motor driver to drive a micro metal 298:1 6V gearmotor
 
 ![complete](https://github.com/bigcrimping/lightning_popper/assets/74270551/87d22aa9-51c7-4eeb-b0e1-dea4f7492809)
 
 
 The electronics fit in a 3D printed housing in the base of a Ikea BEGÅVNING glass dome with a upper section holding the motor drive and wheel
+
+
+https://github.com/bigcrimping/lightning_popper/assets/74270551/b90ec8f4-45b4-442c-8fff-1e1bec368a54
+
 
 ## Project Code
 
