@@ -18,6 +18,43 @@ The code is here: https://github.com/bigcrimping/lightning_popper/tree/main/ligh
 
 You will need to add the "Soldered AS3935 Lightning sensor library" and the "Raspberry Pi Pico/RP2040" board package to compile
 
+## MicroPython Version
+
+A MicroPython port is here: https://github.com/bigcrimping/lightning_popper/tree/main/lightning_micropython
+
+It behaves the same as the Arduino code and uses the same wiring. No extra libraries are needed.
+
+1) Hold BOOTSEL while plugging in the Pico, then copy the MicroPython firmware from https://micropython.org/download/RPI_PICO/ onto the RPI-RP2 drive
+2) Copy `as3935.py` and `main.py` to the Pico with Thonny, or with mpremote:
+
+```
+pip install mpremote
+mpremote cp lightning_micropython/as3935.py lightning_micropython/main.py :
+mpremote reset
+```
+
+At power-up it tunes the sensor's antenna and prints the result, then reads its settings back. If the sensor does not answer on SPI the on-board LED blinks rapidly and setup is retried every few seconds. After an unexpected error the Pico reboots itself. Set `TEST_MODE = True` in `main.py` to make the motor run every few seconds for testing.
+
+On a Pico W use the Pico W firmware instead (https://micropython.org/download/RPI_PICO_W/), otherwise the on-board LED will not work.
+
+### Looking for false strikes
+
+`monitor.py` prints every sensor event (noise, disturber, lightning with distance and energy) and never runs the motor. It runs from the PC and does not need copying to the Pico:
+
+```
+mpremote run lightning_micropython/monitor.py
+```
+
+Stop it with Ctrl-C, then run `mpremote reset` to return to normal operation. By default it uses more sensitive settings than the popper itself; set `USE_SHIPPED_SETTINGS = True` at the top of the file to see what the popper would react to. Note that the sensor's indoor setting is the more sensitive one.
+
+### Tests
+
+The port has a desktop test that runs against a simulated sensor and needs no hardware:
+
+```
+python tests/test_micropython_port.py
+```
+
 ## Wiring
 
 The base contains:
